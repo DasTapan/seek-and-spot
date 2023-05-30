@@ -6,32 +6,54 @@ import crumblingCreek from "/pics/crumbling-creek.png";
 import ps3Icon from "/pics/ps3-icon.jpeg";
 import ps3 from "/pics/ps3.jpeg";
 import ps4Icon from "/pics/ps4-icon.jpeg";
-import ps4 from "/pics/ps4-icon.jpeg";
-import snes from "/pics/snes.jpeg";
+import ps4 from "/pics/ps4.jpeg";
+import n64Icon from "/pics/n64-icon.jpeg";
+import n64 from "/pics/n64.jpeg";
 
 const Home = () => {
   const catalog = [
-    { id: 1, name: "PS2", iconUrl: ps2Icon, imgUrl: ps2 },
+    {
+      id: 1,
+      name: "PS2",
+      iconUrl: ps2Icon,
+      imgUrl: ps2,
+      targets: ["Tommy Vercelli", "Crash", "Spyro"],
+    },
     {
       id: 2,
       name: "Crossover",
       iconUrl: crossover,
       imgUrl: crossover,
+      targets: ["Tom", "Jerry", "Swat Cats"],
     },
     {
       id: 3,
       name: "Crumbling Creek",
       iconUrl: crumblingCreek,
       imgUrl: crumblingCreek,
+      targets: ["Hunter", "Cat", "Frog"],
     },
     {
       id: 4,
       name: "PS3",
       iconUrl: ps3Icon,
       imgUrl: ps3,
+      targets: ["Kratos", "Van Sulivan", "Snake"],
     },
-    { id: 5, name: "PS4", iconUrl: ps4Icon, imgUrl: ps4 },
-    { id: 6, name: "SNES", iconUrl: snes, imgUrl: snes },
+    {
+      id: 5,
+      name: "PS4",
+      iconUrl: ps4Icon,
+      imgUrl: ps4,
+      targets: ["Arthur Morgan", "Nathan Drake", "Sekiro"],
+    },
+    {
+      id: 6,
+      name: "N64",
+      iconUrl: n64Icon,
+      imgUrl: n64,
+      targets: ["Marion", "Luigi", "Mario"],
+    },
   ];
 
   return (
@@ -46,7 +68,11 @@ const Home = () => {
         </button>
         <div className="catalog grid min-w-fit grid-cols-1 gap-3 bg-green-400 p-3 md:grid-cols-3">
           {catalog.map((item) => (
-            <Link key={item.id}>
+            <Link
+              key={item.id}
+              to={`/game/${item.name}`}
+              state={{ targets: item.targets, imgUrl: item.imgUrl }}
+            >
               <div
                 className="card h-36 w-36 rounded-md bg-cover md:h-40 md:w-40 lg:h-44 lg:w-44"
                 style={{ backgroundImage: `url(${item.iconUrl})` }}
