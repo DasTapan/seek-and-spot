@@ -1,12 +1,32 @@
 import { Link, useLocation, useParams } from "react-router-dom";
+import { db } from "../firebase-config";
+import { useEffect, useState } from "react";
+import { doc, getDoc } from "firebase/firestore";
 
 const Game = () => {
+  const [targets, setTargets] = useState([]);
+
   const location = useLocation();
-  const targets = location?.state?.targets;
   const imgUrl = location?.state?.imgUrl;
   const params = useParams();
-  const name = params?.name;
-  console.log(name);
+  let art = params?.art;
+  art = art.toLowerCase().replace(" ", "-");
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const docRef = doc(db, "items", art);
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data();
+        const { target1, target2, target3 } = { ...data };
+        setTargets([target1.name, target2.name, target3.name]);
+        console.log("use effect ran");
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+    fetchData();
+  }, [art]);
 
   return (
     <div className="game min-h-screen">

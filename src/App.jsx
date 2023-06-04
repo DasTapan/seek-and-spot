@@ -1,6 +1,3 @@
-import { useEffect } from "react";
-import { personsRef } from "./firebase-config";
-import { getDocs } from "firebase/firestore";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "./components/Home";
@@ -12,7 +9,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/game/:name" element={<Game />} />
+          <Route path="/game/:art" element={<Game />} />
         </Routes>
       </BrowserRouter>
     </>

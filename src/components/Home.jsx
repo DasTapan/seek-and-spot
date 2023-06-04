@@ -17,7 +17,7 @@ const Home = () => {
             <Link
               key={item.id}
               to={`/game/${item.name}`}
-              state={{ targets: item.targets, imgUrl: item.imgUrl }}
+              state={{ imgUrl: item.imgUrl }}
             >
               <div
                 className="card h-36 w-36 rounded-md bg-cover md:h-40 md:w-40 lg:h-44 lg:w-44"
