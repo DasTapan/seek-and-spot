@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "chokokutai";
+  src: url("/fonts/Chokokutai.ttf");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "wallpoet";
+  src: url("/fonts/Wallpoet.ttf");
+  font-style: normal;
+}
