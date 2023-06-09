@@ -9,24 +9,23 @@ const Game = () => {
   const location = useLocation();
   const imgUrl = location?.state?.imgUrl;
   const params = useParams();
-  let art = params?.art;
-  art = art.toLowerCase().replace(" ", "-");
+  let artName = params?.artName;
+  artName = artName.toLowerCase().replace(" ", "-");
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const docRef = doc(db, "items", art);
-        const docSnap = await getDoc(docRef);
-        const data = docSnap.data();
-        const { target1, target2, target3 } = { ...data };
-        setTargets([target1.name, target2.name, target3.name]);
-        console.log("use effect ran");
-      } catch (error) {
-        console.error(error.message);
+    const fetchData = async () => {
+      const docRef = doc(db, "targets", artName);
+      const docSnap = await getDoc(docRef);
+      const data = { ...docSnap.data() };
+      const names = [];
+      for (const key in data) {
+        names.push(data[key].name);
       }
-    }
+      setTargets(names);
+    };
     fetchData();
-  }, [art]);
+    console.log("effect ran");
+  }, [artName]);
 
   return (
     <div className="game min-h-screen">
@@ -44,7 +43,11 @@ const Game = () => {
         <div className="timer">Timer Here</div>
       </nav>
       <main className="bg-pink-600 text-center">
-        <img src={imgUrl} alt={name} />
+        <img
+          src={imgUrl}
+          alt={artName}
+          style={{ width: "100%", height: "auto" }}
+        />
       </main>
       <footer className="flex justify-center bg-indigo-800 py-3 text-white">
         <span className="mr-3">Made by DasTapan</span>

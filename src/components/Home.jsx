@@ -10,7 +10,7 @@ const Home = () => {
       <section className="mx-auto flex items-start justify-between md:w-11/12">
         <button
           type="button"
-          className="rounded-md bg-[#00b300] px-3 py-1.5 font-bold text-white"
+          className="rounded-md bg-[#00b300] px-3 py-1.5 font-bold text-white transition delay-75 ease-in-out hover:scale-110"
         >
           Leaderboard
         </button>
@@ -21,7 +21,7 @@ const Home = () => {
               to={`/game/${item.name}`}
               state={{ imgUrl: item.imgUrl }}
             >
-              <div className="card flex flex-col items-center">
+              <div className="card flex flex-col items-center transition delay-150 ease-in-out hover:scale-110">
                 <div
                   className="pic mb-1.5 h-36 w-36 rounded-md bg-cover md:h-52 md:w-52 lg:h-60 lg:w-60"
                   style={{ backgroundImage: `url(${item.iconUrl})` }}
