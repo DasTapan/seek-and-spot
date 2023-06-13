@@ -6,7 +6,6 @@ import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
 
 const Game = () => {
   const [targets, setTargets] = useState([]);
-  const [iconUrls, setIconUrls] = useState([]);
 
   const location = useLocation();
   const imgUrl = location?.state?.imgUrl;
@@ -20,41 +19,51 @@ const Game = () => {
         const docRef = doc(db, "targets", artName);
         const docSnap = await getDoc(docRef);
         const data = { ...docSnap.data() };
-        const names = [];
+        const targetsWithoutUrl = [];
+
         for (const key in data) {
-          names.push(data[key].name);
+          targetsWithoutUrl.push({
+            name: data[key].name,
+            id: formatName(data[key].name),
+          });
         }
-        setTargets(names);
-      } catch (error) {
-        console.error(error.message);
-      }
-    };
 
-    fetchData();
-  }, [artName]);
-
-  useEffect(() => {
-    const fetchIcons = async () => {
-      try {
         const storage = getStorage();
         const listRef = ref(storage, `target-icons/${artName}`);
         const response = await listAll(listRef);
         const items = response.items;
         const fullPaths = items.map((item) => item.fullPath);
-        // console.log(fullPaths);
 
         const getUrls = async () => {
           const urls = [];
+
           for (const fullPath of fullPaths) {
+            const regex = /^target-icons\/[a-zA-Z0-9]+\//;
+            const fileName = fullPath.replace(regex, "");
+            const extensionRegex = /\.[^.]+$/;
+            const nameWithoutExtension = fileName.replace(extensionRegex, "");
             const url = await getDownloadURL(ref(storage, fullPath));
-            urls.push(url);
+
+            urls.push({
+              id: nameWithoutExtension,
+              iconUrl: url,
+            });
           }
           return [...urls];
         };
 
         const urls = await getUrls();
-        console.log(urls);
-        setIconUrls(urls);
+        const copyOfUrls = [...urls];
+
+        const targetsWithUrl = targetsWithoutUrl.map((target) => {
+          const matchingUrl = copyOfUrls.find((url) => url.id === target.id);
+          return {
+            ...target,
+            ...matchingUrl,
+          };
+        });
+
+        setTargets(targetsWithUrl);
       } catch (error) {
         switch (error.code) {
           case "storage/object-not-found":
@@ -72,8 +81,15 @@ const Game = () => {
         }
       }
     };
-    fetchIcons();
+
+    fetchData();
   }, [artName]);
+
+  function formatName(input) {
+    let output = input.toLowerCase();
+    output = output.replace(" ", "-");
+    return output;
+  }
 
   return (
     <div className="game min-h-screen">
@@ -83,24 +99,24 @@ const Game = () => {
         </Link>
         <div className="targets flex gap-x-3">
           <div className="target flex items-center">
-            <span className="mr-0.5">{targets[0]}</span>
+            <span className="mr-0.5">{targets[0]?.name}</span>
             <div
               className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${iconUrls[0]})` }}
+              style={{ backgroundImage: `url(${targets[0]?.iconUrl})` }}
             ></div>
           </div>
           <div className="target flex items-center">
-            <span className="mr-0.5">{targets[1]}</span>
+            <span className="mr-0.5">{targets[1]?.name}</span>
             <div
               className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${iconUrls[1]})` }}
+              style={{ backgroundImage: `url(${targets[1]?.iconUrl})` }}
             ></div>
           </div>
           <div className="target flex items-center">
-            <span className="mr-0.5">{targets[2]}</span>
+            <span className="mr-0.5">{targets[2]?.name}</span>
             <div
               className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${iconUrls[2]})` }}
+              style={{ backgroundImage: `url(${targets[2]?.iconUrl})` }}
             ></div>
           </div>
         </div>
