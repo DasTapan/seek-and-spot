@@ -92,8 +92,8 @@ const Game = () => {
   }
 
   return (
-    <div className="game min-h-screen">
-      <nav className="flex items-center justify-between bg-teal-400 px-5 py-1.5 font-bold text-white">
+    <div className="game relative min-h-screen">
+      <nav className="sticky top-0 flex items-center justify-between bg-teal-400 px-5 py-1.5 font-bold text-white">
         <Link to="/">
           <button type="button">Home</button>
         </Link>
