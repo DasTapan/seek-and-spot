@@ -97,22 +97,22 @@ const Game = () => {
         <Link to="/">
           <button type="button">Home</button>
         </Link>
-        <div className="targets flex gap-x-3">
-          <div className="target flex items-center">
+        <div className="targets flex gap-x-12">
+          <div className="target flex items-center duration-200 hover:scale-150 hover:cursor-pointer hover:py-5 hover:ease-in-out">
             <span className="mr-0.5">{targets[0]?.name}</span>
             <div
               className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
               style={{ backgroundImage: `url(${targets[0]?.iconUrl})` }}
             ></div>
           </div>
-          <div className="target flex items-center">
+          <div className="target flex items-center duration-200 hover:scale-150 hover:cursor-pointer hover:py-5 hover:ease-in-out">
             <span className="mr-0.5">{targets[1]?.name}</span>
             <div
               className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
               style={{ backgroundImage: `url(${targets[1]?.iconUrl})` }}
             ></div>
           </div>
-          <div className="target flex items-center">
+          <div className="target flex items-center duration-200 hover:scale-150 hover:cursor-pointer hover:py-5 hover:ease-in-out">
             <span className="mr-0.5">{targets[2]?.name}</span>
             <div
               className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
