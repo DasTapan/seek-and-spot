@@ -1,7 +1,6 @@
 import ClipLoader from "react-spinners/ClipLoader";
 
 const override = {
-  fontWeight: "bold",
   borderWidth: "3px",
 };
 
@@ -11,6 +10,7 @@ const LoadingIndicator = () => {
       color="#FFFFFF"
       aria-label="Loading Spinner"
       cssOverride={override}
+      speedMultiplier={0.5}
     />
   );
 };
