@@ -2,10 +2,12 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { db } from "../firebase-config";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
+import LoadingIndicator from "./LoadingIndicator";
 import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
 
 const Game = () => {
   const [targets, setTargets] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
   const imgUrl = location?.state?.imgUrl;
@@ -15,6 +17,7 @@ const Game = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const docRef = doc(db, "targets", artName);
         const docSnap = await getDoc(docRef);
@@ -64,6 +67,7 @@ const Game = () => {
         });
 
         setTargets(targetsWithUrl);
+        // setIsLoading(false);
       } catch (error) {
         switch (error.code) {
           case "storage/object-not-found":
@@ -79,6 +83,8 @@ const Game = () => {
             console.log("Unknown error occurred, inspect the server response");
             break;
         }
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -98,27 +104,39 @@ const Game = () => {
           <button type="button">Home</button>
         </Link>
         <div className="targets flex gap-x-12">
-          <div className="target flex items-center duration-200 hover:scale-150 hover:cursor-pointer hover:py-5 hover:ease-in-out">
-            <span className="mr-0.5">{targets[0]?.name}</span>
-            <div
-              className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${targets[0]?.iconUrl})` }}
-            ></div>
-          </div>
-          <div className="target flex items-center duration-200 hover:scale-150 hover:cursor-pointer hover:py-5 hover:ease-in-out">
-            <span className="mr-0.5">{targets[1]?.name}</span>
-            <div
-              className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${targets[1]?.iconUrl})` }}
-            ></div>
-          </div>
-          <div className="target flex items-center duration-200 hover:scale-150 hover:cursor-pointer hover:py-5 hover:ease-in-out">
-            <span className="mr-0.5">{targets[2]?.name}</span>
-            <div
-              className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${targets[2]?.iconUrl})` }}
-            ></div>
-          </div>
+          {isLoading ? (
+            <LoadingIndicator />
+          ) : (
+            <div className="target flex items-center duration-200 hover:scale-150 hover:cursor-pointer hover:py-5 hover:ease-in-out">
+              <span className="mr-0.5">{targets[0]?.name}</span>
+              <div
+                className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${targets[0]?.iconUrl})` }}
+              ></div>
+            </div>
+          )}
+          {isLoading ? (
+            <LoadingIndicator />
+          ) : (
+            <div className="target flex items-center duration-200 hover:scale-150 hover:cursor-pointer hover:py-5 hover:ease-in-out">
+              <span className="mr-0.5">{targets[1]?.name}</span>
+              <div
+                className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${targets[1]?.iconUrl})` }}
+              ></div>
+            </div>
+          )}
+          {isLoading ? (
+            <LoadingIndicator />
+          ) : (
+            <div className="target flex items-center duration-200 hover:scale-150 hover:cursor-pointer hover:py-5 hover:ease-in-out">
+              <span className="mr-0.5">{targets[2]?.name}</span>
+              <div
+                className="icon h-12 w-12 bg-contain bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${targets[2]?.iconUrl})` }}
+              ></div>
+            </div>
+          )}
         </div>
         <div className="timer">Timer Here</div>
       </nav>
