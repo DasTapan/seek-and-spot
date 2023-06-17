@@ -140,7 +140,7 @@ const Game = () => {
         </div>
         <div className="timer">Timer Here</div>
       </nav>
-      <main className="bg-pink-600 text-center">
+      <main className="cursor-[url('/cursor-icon.png'),_crosshair] bg-pink-600 text-center">
         <img
           src={imgUrl}
           alt={artName}
