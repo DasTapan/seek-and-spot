@@ -1,6 +1,6 @@
 import { Link, useLocation, useParams } from "react-router-dom";
 import { db } from "../firebase-config";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import LoadingIndicator from "./LoadingIndicator";
 import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
@@ -8,12 +8,16 @@ import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
 const Game = () => {
   const [targets, setTargets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const targetBoxRef = useRef(null);
 
   const location = useLocation();
   const imgUrl = location?.state?.imgUrl;
   const params = useParams();
   let artName = params?.artName;
   artName = artName.toLowerCase().replace(" ", "-");
+
+  const CLIENT_WIDTH = document.documentElement.clientWidth;
+  const CLIENT_HEIGHT = document.documentElement.clientHeight;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,6 +95,16 @@ const Game = () => {
     fetchData();
   }, [artName]);
 
+  const handleClick = (e) => {
+    const { posX, posY } = { posX: e.pageX + 75, posY: e.pageY };
+
+    if (targetBoxRef.current) {
+      targetBoxRef.current.style.left = `${posX}px`;
+      targetBoxRef.current.style.top = `${posY}px`;
+      targetBoxRef.current.showModal();
+    }
+  };
+
   function formatName(input) {
     let output = input.toLowerCase();
     output = output.replace(" ", "-");
@@ -141,10 +155,18 @@ const Game = () => {
         <div className="timer">Timer Here</div>
       </nav>
       <main className="cursor-[url('/cursor-icon.png'),_crosshair] bg-pink-600 text-center">
+        <dialog
+          ref={targetBoxRef}
+          id="target-box"
+          className="absolute m-0 h-44 w-44 border-white bg-red-600"
+        >
+          this is target box
+        </dialog>
         <img
           src={imgUrl}
           alt={artName}
           style={{ width: "100%", height: "auto" }}
+          onClick={handleClick}
         />
       </main>
       <footer className="flex justify-center bg-indigo-800 py-3 text-white">
