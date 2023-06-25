@@ -9,15 +9,13 @@ const Game = () => {
   const [targets, setTargets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const targetBoxRef = useRef(null);
+  const imageRef = useRef(null);
 
   const location = useLocation();
   const imgUrl = location?.state?.imgUrl;
   const params = useParams();
   let artName = params?.artName;
   artName = artName.toLowerCase().replace(" ", "-");
-
-  const CLIENT_WIDTH = document.documentElement.clientWidth;
-  const CLIENT_HEIGHT = document.documentElement.clientHeight;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,14 +93,26 @@ const Game = () => {
     fetchData();
   }, [artName]);
 
-  const handleClick = (e) => {
-    const { posX, posY } = { posX: e.pageX + 75, posY: e.pageY };
-
-    if (targetBoxRef.current) {
-      targetBoxRef.current.style.left = `${posX}px`;
-      targetBoxRef.current.style.top = `${posY}px`;
-      targetBoxRef.current.showModal();
+  const positionTargetBox = (x, y) => {
+    let clientWidth, scrollHeight;
+    if (imageRef.current) {
+      clientWidth = imageRef.current.clientWidth;
+      scrollHeight = imageRef.current.scrollHeight;
     }
+    console.log("distance from right edge: ", clientWidth - x);
+    console.log("distance from bottom edge: ", scrollHeight - y);
+
+    // if (clientWidth - x < 220) console.log("invert x");
+    // if (scrollHeight - y < 220) console.log("invert y");
+  };
+
+  const handleClick = (e) => {
+    const { offsetX, offsetY } = {
+      offsetX: e.nativeEvent.offsetX,
+      offsetY: e.nativeEvent.offsetY,
+    };
+    // console.log({ offsetX, offsetY });
+    positionTargetBox(offsetX, offsetY);
   };
 
   function formatName(input) {
@@ -163,6 +173,8 @@ const Game = () => {
           this is target box
         </dialog>
         <img
+          id="hero"
+          ref={imageRef}
           src={imgUrl}
           alt={artName}
           style={{ width: "100%", height: "auto" }}
