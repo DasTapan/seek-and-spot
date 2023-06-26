@@ -99,11 +99,21 @@ const Game = () => {
       clientWidth = imageRef.current.clientWidth;
       scrollHeight = imageRef.current.scrollHeight;
     }
-    console.log("distance from right edge: ", clientWidth - x);
-    console.log("distance from bottom edge: ", scrollHeight - y);
 
-    // if (clientWidth - x < 220) console.log("invert x");
-    // if (scrollHeight - y < 220) console.log("invert y");
+    if (clientWidth - x < 220) {
+      console.log("invert x");
+      targetBoxRef.current.style.left = `${x - 176 - 35}` + "px"; // dialog width - gap
+      targetBoxRef.current.style.top = `${y + 30}` + "px"; //nav
+    } else if (scrollHeight - y < 220) {
+      console.log("invert y");
+      targetBoxRef.current.style.top = `${y - 176 - 35 + 60}` + "px"; // dialog height - gap + nav
+      targetBoxRef.current.style.left = `${x + 35}` + "px"; //35px gap
+    } else {
+      targetBoxRef.current.style.left = `${x + 55}` + "px"; //55px gap
+      targetBoxRef.current.style.top = `${y + 30}` + "px"; //nav
+    }
+
+    targetBoxRef.current.showModal();
   };
 
   const handleClick = (e) => {
@@ -111,7 +121,6 @@ const Game = () => {
       offsetX: e.nativeEvent.offsetX,
       offsetY: e.nativeEvent.offsetY,
     };
-    // console.log({ offsetX, offsetY });
     positionTargetBox(offsetX, offsetY);
   };
 
