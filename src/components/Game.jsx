@@ -3,12 +3,15 @@ import { db } from "../firebase-config";
 import { useEffect, useState, useRef } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import LoadingIndicator from "./LoadingIndicator";
+import TargetModal from "./TargetModal";
 import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
 
 const Game = () => {
   const [targets, setTargets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const targetBoxRef = useRef(null);
+  const [isModalActive, setIsModalActive] = useState(false);
+  const [modalPosition, setModalPosition] = useState(null);
+
   const imageRef = useRef(null);
 
   const location = useLocation();
@@ -102,18 +105,16 @@ const Game = () => {
 
     if (clientWidth - x < 220) {
       console.log("invert x");
-      targetBoxRef.current.style.left = `${x - 176 - 35}` + "px"; // dialog width - gap
-      targetBoxRef.current.style.top = `${y + 30}` + "px"; //nav
+      setModalPosition({ left: `${x - 176 - 35}`, top: `${y + 30}` });
     } else if (scrollHeight - y < 220) {
       console.log("invert y");
-      targetBoxRef.current.style.top = `${y - 176 - 35 + 60}` + "px"; // dialog height - gap + nav
-      targetBoxRef.current.style.left = `${x + 35}` + "px"; //35px gap
+      setModalPosition({
+        left: `${x + 35}`,
+        top: `${y - 176 - 35 + 60}`,
+      });
     } else {
-      targetBoxRef.current.style.left = `${x + 55}` + "px"; //55px gap
-      targetBoxRef.current.style.top = `${y + 30}` + "px"; //nav
+      setModalPosition({ left: `${x + 55}`, top: `${y + 30}` });
     }
-
-    targetBoxRef.current.showModal();
   };
 
   const handleClick = (e) => {
@@ -121,7 +122,12 @@ const Game = () => {
       offsetX: e.nativeEvent.offsetX,
       offsetY: e.nativeEvent.offsetY,
     };
+    setModalPosition({
+      offsetX,
+      offsetY,
+    });
     positionTargetBox(offsetX, offsetY);
+    setIsModalActive(!isModalActive);
   };
 
   function formatName(input) {
@@ -173,14 +179,12 @@ const Game = () => {
         </div>
         <div className="timer">Timer Here</div>
       </nav>
+      <TargetModal
+        position={modalPosition}
+        targets={[...targets]}
+        isOpen={isModalActive}
+      />
       <main className="cursor-[url('/cursor-icon.png'),_crosshair] bg-pink-600 text-center">
-        <dialog
-          ref={targetBoxRef}
-          id="target-box"
-          className="absolute m-0 h-44 w-44 border-white bg-red-600"
-        >
-          this is target box
-        </dialog>
         <img
           id="hero"
           ref={imageRef}
