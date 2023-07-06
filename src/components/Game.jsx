@@ -11,6 +11,7 @@ const Game = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
   const [modalPosition, setModalPosition] = useState(null);
+  const [pointOfClick, setPointOfClick] = useState(null);
 
   const imageRef = useRef(null);
 
@@ -104,10 +105,8 @@ const Game = () => {
     }
 
     if (clientWidth - x < 220) {
-      console.log("invert x");
       setModalPosition({ left: `${x - 176 - 35}`, top: `${y + 30}` });
     } else if (scrollHeight - y < 220) {
-      console.log("invert y");
       setModalPosition({
         left: `${x + 35}`,
         top: `${y - 176 - 35 + 60}`,
@@ -122,9 +121,14 @@ const Game = () => {
       offsetX: e.nativeEvent.offsetX,
       offsetY: e.nativeEvent.offsetY,
     };
-    setModalPosition({
-      offsetX,
-      offsetY,
+    const xDistance =
+      Math.round((offsetX / imageRef.current.offsetWidth) * 1000) / 1000;
+    const yDistance =
+      Math.round((offsetY / imageRef.current.offsetHeight) * 1000) / 1000;
+
+    setPointOfClick({
+      x: xDistance,
+      y: yDistance,
     });
     positionTargetBox(offsetX, offsetY);
     setIsModalActive(!isModalActive);
@@ -180,11 +184,13 @@ const Game = () => {
         <div className="timer">Timer Here</div>
       </nav>
       <TargetModal
-        position={modalPosition}
+        modalPosition={modalPosition}
+        pointOfClick={pointOfClick}
         targets={[...targets]}
         isOpen={isModalActive}
+        artName={artName}
       />
-      <main className="cursor-[url('/cursor-icon.png'),_crosshair] bg-pink-600 text-center">
+      <main className="cursor-[url('/cursor-icon.png'),_crosshair] text-center">
         <img
           id="hero"
           ref={imageRef}

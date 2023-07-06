@@ -1,18 +1,30 @@
 import PropTypes from "prop-types";
+import checkCoordinates from "../helper/checkCoordinates";
 
-const TargetModal = ({ position, isOpen, targets }) => {
+const TargetModal = ({
+  modalPosition,
+  pointOfClick,
+  isOpen,
+  targets,
+  artName,
+}) => {
   return (
     <>
       {isOpen ? (
         <div
-          className="target-box w-44 rounded-lg border-2 border-pink-400 bg-pink-200"
+          className="target-box z-50 w-44 rounded-lg border-2 border-pink-400 bg-pink-200"
           style={{
             position: "absolute",
-            left: `${position.left}` + "px",
-            top: `${position.top}` + "px",
+            left: `${modalPosition.left}` + "px",
+            top: `${modalPosition.top}` + "px",
           }}
         >
-          <div className="target mb-1.5 flex items-center rounded-md bg-pink-300 px-1.5 py-1">
+          <div
+            onClick={() =>
+              checkCoordinates(artName, targets[0].id, pointOfClick)
+            }
+            className="target mb-1.5 flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
+          >
             <img
               className="mr-1.5 h-12 w-12"
               src={targets[0].iconUrl}
@@ -22,7 +34,12 @@ const TargetModal = ({ position, isOpen, targets }) => {
               {targets[0].name}
             </span>
           </div>
-          <div className="target mb-1.5 flex items-center rounded-md bg-pink-300 px-1.5 py-1">
+          <div
+            onClick={() =>
+              checkCoordinates(artName, targets[1].id, pointOfClick)
+            }
+            className="target mb-1.5 flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
+          >
             <img
               className="mr-1.5 h-12 w-12"
               src={targets[1].iconUrl}
@@ -32,7 +49,12 @@ const TargetModal = ({ position, isOpen, targets }) => {
               {targets[1].name}
             </span>
           </div>
-          <div className="target flex items-center rounded-md bg-pink-300 px-1.5 py-1">
+          <div
+            onClick={() =>
+              checkCoordinates(artName, targets[2].id, pointOfClick)
+            }
+            className="target flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
+          >
             <img
               className="mr-1.5 h-12 w-12"
               src={targets[2].iconUrl}
@@ -54,9 +76,11 @@ TargetModal.propTypes = {
   imageRef: PropTypes.shape({
     current: PropTypes.instanceOf(Element),
   }),
-  position: PropTypes.object,
+  modalPosition: PropTypes.object,
   isOpen: PropTypes.bool,
   targets: PropTypes.array,
+  artName: PropTypes.string,
+  pointOfClick: PropTypes.object,
 };
 
 export default TargetModal;
