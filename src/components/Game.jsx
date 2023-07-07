@@ -188,6 +188,7 @@ const Game = () => {
         pointOfClick={pointOfClick}
         targets={[...targets]}
         isOpen={isModalActive}
+        handleIsOpen={setIsModalActive}
         artName={artName}
       />
       <main className="cursor-[url('/cursor-icon.png'),_crosshair] text-center">

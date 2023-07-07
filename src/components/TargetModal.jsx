@@ -5,6 +5,7 @@ const TargetModal = ({
   modalPosition,
   pointOfClick,
   isOpen,
+  handleIsOpen,
   targets,
   artName,
 }) => {
@@ -20,9 +21,10 @@ const TargetModal = ({
           }}
         >
           <div
-            onClick={() =>
-              checkCoordinates(artName, targets[0].id, pointOfClick)
-            }
+            onClick={() => {
+              handleIsOpen(false);
+              checkCoordinates(artName, targets[0].id, pointOfClick);
+            }}
             className="target mb-1.5 flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
           >
             <img
@@ -35,9 +37,10 @@ const TargetModal = ({
             </span>
           </div>
           <div
-            onClick={() =>
-              checkCoordinates(artName, targets[1].id, pointOfClick)
-            }
+            onClick={() => {
+              handleIsOpen(false);
+              checkCoordinates(artName, targets[1].id, pointOfClick);
+            }}
             className="target mb-1.5 flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
           >
             <img
@@ -50,9 +53,10 @@ const TargetModal = ({
             </span>
           </div>
           <div
-            onClick={() =>
-              checkCoordinates(artName, targets[2].id, pointOfClick)
-            }
+            onClick={() => {
+              handleIsOpen(false);
+              checkCoordinates(artName, targets[2].id, pointOfClick);
+            }}
             className="target flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
           >
             <img
@@ -78,6 +82,7 @@ TargetModal.propTypes = {
   }),
   modalPosition: PropTypes.object,
   isOpen: PropTypes.bool,
+  handleIsOpen: PropTypes.func,
   targets: PropTypes.array,
   artName: PropTypes.string,
   pointOfClick: PropTypes.object,

@@ -15,8 +15,8 @@ const checkCoordinates = async (picName, targetId, pointOfClick) => {
       if (data[key].id === targetId) target = { ...data[key] };
     }
     const { xMin, xMax, yMin, yMax } = target;
-    console.log({ xMin, xMax, yMin, yMax });
-    console.log(pointOfClick);
+    // console.log({ xMin, xMax, yMin, yMax });
+    // console.log(pointOfClick);
     if (
       pointOfClick.x >= xMin &&
       pointOfClick.x <= xMax &&
