@@ -8,6 +8,7 @@ const TargetModal = ({
   handleIsOpen,
   targets,
   artName,
+  handleMarking,
 }) => {
   return (
     <>
@@ -23,7 +24,12 @@ const TargetModal = ({
           <div
             onClick={() => {
               handleIsOpen(false);
-              checkCoordinates(artName, targets[0].id, pointOfClick);
+              checkCoordinates(artName, targets[0].id, pointOfClick).then(
+                ({ found }) => {
+                  if (found) handleMarking(targets[0].id);
+                  else console.log("this is not the target");
+                }
+              );
             }}
             className="target mb-1.5 flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
           >
@@ -39,7 +45,12 @@ const TargetModal = ({
           <div
             onClick={() => {
               handleIsOpen(false);
-              checkCoordinates(artName, targets[1].id, pointOfClick);
+              checkCoordinates(artName, targets[1].id, pointOfClick).then(
+                ({ found }) => {
+                  if (found) handleMarking(targets[1].id);
+                  else console.log("this is not the target");
+                }
+              );
             }}
             className="target mb-1.5 flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
           >
@@ -55,7 +66,12 @@ const TargetModal = ({
           <div
             onClick={() => {
               handleIsOpen(false);
-              checkCoordinates(artName, targets[2].id, pointOfClick);
+              checkCoordinates(artName, targets[2].id, pointOfClick).then(
+                ({ found }) => {
+                  if (found) handleMarking(targets[2].id);
+                  else console.log("this is not the target");
+                }
+              );
             }}
             className="target flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
           >
@@ -86,6 +102,7 @@ TargetModal.propTypes = {
   targets: PropTypes.array,
   artName: PropTypes.string,
   pointOfClick: PropTypes.object,
+  handleMarking: PropTypes.func,
 };
 
 export default TargetModal;

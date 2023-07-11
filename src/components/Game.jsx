@@ -1,10 +1,11 @@
+import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { db } from "../firebase-config";
 import { useEffect, useState, useRef } from "react";
 import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase-config";
 import LoadingIndicator from "./LoadingIndicator";
 import TargetModal from "./TargetModal";
-import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
+import Found from "./Found";
 
 const Game = () => {
   const [targets, setTargets] = useState([]);
@@ -34,6 +35,7 @@ const Game = () => {
           targetsWithoutUrl.push({
             name: data[key].name,
             id: formatName(data[key].name),
+            isFound: false,
           });
         }
 
@@ -73,7 +75,6 @@ const Game = () => {
         });
 
         setTargets(targetsWithUrl);
-        // setIsLoading(false);
       } catch (error) {
         switch (error.code) {
           case "storage/object-not-found":
@@ -140,6 +141,24 @@ const Game = () => {
     return output;
   }
 
+  const markTarget = (targetId) => {
+    console.log(targetId, " found");
+    const updatedTargets = targets.map((target) => {
+      if (target.id === targetId)
+        return {
+          ...target,
+          isFound: true,
+        };
+      else return target;
+    });
+    setTargets(updatedTargets);
+  };
+
+  const getImageDimension = () => ({
+    imageWidth: imageRef.current?.clientWidth,
+    imageHeight: imageRef.current?.scrollHeight,
+  });
+
   return (
     <div className="game relative min-h-screen">
       <nav className="sticky top-0 flex items-center justify-between bg-[#9400D3] px-5 py-1.5 font-bold text-white">
@@ -190,7 +209,32 @@ const Game = () => {
         isOpen={isModalActive}
         handleIsOpen={setIsModalActive}
         artName={artName}
+        handleMarking={markTarget}
       />
+      {targets[0]?.id ? (
+        <Found
+          isFound={targets[0].isFound}
+          id={targets[0].id}
+          picName={artName}
+          getImageDimension={getImageDimension}
+        />
+      ) : null}
+      {targets[1]?.id ? (
+        <Found
+          isFound={targets[1].isFound}
+          id={targets[1].id}
+          picName={artName}
+          getImageDimension={getImageDimension}
+        />
+      ) : null}
+      {targets[2]?.id ? (
+        <Found
+          isFound={targets[2].isFound}
+          id={targets[2].id}
+          picName={artName}
+          getImageDimension={getImageDimension}
+        />
+      ) : null}
       <main className="cursor-[url('/cursor-icon.png'),_crosshair] text-center">
         <img
           id="hero"

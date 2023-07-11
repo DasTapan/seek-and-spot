@@ -1,7 +1,10 @@
 import { db } from "../firebase-config";
 import { doc, getDoc } from "firebase/firestore";
 
+const targetDimension = {};
+
 const checkCoordinates = async (picName, targetId, pointOfClick) => {
+  let found;
   try {
     // console.log(picName, targetId);
     const docRef = doc(db, "targets", picName);
@@ -15,6 +18,8 @@ const checkCoordinates = async (picName, targetId, pointOfClick) => {
       if (data[key].id === targetId) target = { ...data[key] };
     }
     const { xMin, xMax, yMin, yMax } = target;
+    Object.assign(targetDimension, { xMin, xMax, yMin, yMax });
+
     // console.log({ xMin, xMax, yMin, yMax });
     // console.log(pointOfClick);
     if (
@@ -23,11 +28,11 @@ const checkCoordinates = async (picName, targetId, pointOfClick) => {
       pointOfClick.y >= yMin &&
       pointOfClick.y <= yMax
     )
-      console.log("correct target");
-    else console.log("this is not the target");
+      found = true;
+    else found = false;
   } catch (error) {
     console.error(error.message);
   }
+  return { found, targetDimension };
 };
-
 export default checkCoordinates;
