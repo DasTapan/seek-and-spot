@@ -134,8 +134,8 @@ const Game = () => {
       x: xDistance,
       y: yDistance,
     });
-    positionTargetBox(offsetX, offsetY);
-    setIsModalActive(!isModalActive);
+    // positionTargetBox(offsetX, offsetY);
+    // setIsModalActive(!isModalActive);
   };
 
   function formatName(input) {
@@ -219,9 +219,12 @@ const Game = () => {
         handleFeedback={handleFeedback}
       />
       <Feedback
-        isActive={isFeedbackActive}
+        // isActive={isFeedbackActive}
+        isActive={true}
         pointOfClick={pointOfClick}
         name={feedbackName}
+        imgWidth={imageRef.current?.offsetWidth}
+        imgHeight={imageRef.current?.offsetHeight}
       />
       {targets[0]?.id ? (
         <Found
