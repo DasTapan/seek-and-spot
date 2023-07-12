@@ -9,6 +9,7 @@ const TargetModal = ({
   targets,
   artName,
   handleMarking,
+  handleFeedback,
 }) => {
   return (
     <>
@@ -27,7 +28,7 @@ const TargetModal = ({
               checkCoordinates(artName, targets[0].id, pointOfClick).then(
                 ({ found }) => {
                   if (found) handleMarking(targets[0].id);
-                  else console.log("this is not the target");
+                  else handleFeedback(targets[0].name, pointOfClick);
                 }
               );
             }}
@@ -48,7 +49,7 @@ const TargetModal = ({
               checkCoordinates(artName, targets[1].id, pointOfClick).then(
                 ({ found }) => {
                   if (found) handleMarking(targets[1].id);
-                  else console.log("this is not the target");
+                  else handleFeedback(targets[0].name, pointOfClick);
                 }
               );
             }}
@@ -69,7 +70,7 @@ const TargetModal = ({
               checkCoordinates(artName, targets[2].id, pointOfClick).then(
                 ({ found }) => {
                   if (found) handleMarking(targets[2].id);
-                  else console.log("this is not the target");
+                  else handleFeedback(targets[0].name, pointOfClick);
                 }
               );
             }}
@@ -103,6 +104,7 @@ TargetModal.propTypes = {
   artName: PropTypes.string,
   pointOfClick: PropTypes.object,
   handleMarking: PropTypes.func,
+  handleFeedback: PropTypes.func,
 };
 
 export default TargetModal;

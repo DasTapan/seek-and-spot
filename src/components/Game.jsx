@@ -6,11 +6,14 @@ import { db } from "../firebase-config";
 import LoadingIndicator from "./LoadingIndicator";
 import TargetModal from "./TargetModal";
 import Found from "./Found";
+import Feedback from "./Feedback";
 
 const Game = () => {
   const [targets, setTargets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
+  const [isFeedbackActive, setIsFeedbackActive] = useState(false);
+  const [feedbackName, setFeedbackName] = useState("");
   const [modalPosition, setModalPosition] = useState(null);
   const [pointOfClick, setPointOfClick] = useState(null);
 
@@ -142,7 +145,6 @@ const Game = () => {
   }
 
   const markTarget = (targetId) => {
-    console.log(targetId, " found");
     const updatedTargets = targets.map((target) => {
       if (target.id === targetId)
         return {
@@ -158,6 +160,10 @@ const Game = () => {
     imageWidth: imageRef.current?.clientWidth,
     imageHeight: imageRef.current?.scrollHeight,
   });
+
+  const handleFeedback = (name) => {
+    setFeedbackName(name);
+  };
 
   return (
     <div className="game relative min-h-screen">
@@ -210,6 +216,12 @@ const Game = () => {
         handleIsOpen={setIsModalActive}
         artName={artName}
         handleMarking={markTarget}
+        handleFeedback={handleFeedback}
+      />
+      <Feedback
+        isActive={isFeedbackActive}
+        pointOfClick={pointOfClick}
+        name={feedbackName}
       />
       {targets[0]?.id ? (
         <Found

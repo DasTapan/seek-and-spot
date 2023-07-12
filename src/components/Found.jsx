@@ -21,7 +21,7 @@ const Found = ({ id, picName, isFound, getImageDimension }) => {
 
   return isFound ? (
     <img
-      src="/found.png"
+      src="/found2.png"
       alt="found"
       className="absolute z-30"
       style={markingStyle}
