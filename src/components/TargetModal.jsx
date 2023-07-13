@@ -28,7 +28,7 @@ const TargetModal = ({
               checkCoordinates(artName, targets[0].id, pointOfClick).then(
                 ({ found }) => {
                   if (found) handleMarking(targets[0].id);
-                  else handleFeedback(targets[0].name, pointOfClick);
+                  else handleFeedback(targets[0].name);
                 }
               );
             }}
@@ -49,7 +49,7 @@ const TargetModal = ({
               checkCoordinates(artName, targets[1].id, pointOfClick).then(
                 ({ found }) => {
                   if (found) handleMarking(targets[1].id);
-                  else handleFeedback(targets[0].name, pointOfClick);
+                  else handleFeedback(targets[1].name);
                 }
               );
             }}
@@ -70,7 +70,7 @@ const TargetModal = ({
               checkCoordinates(artName, targets[2].id, pointOfClick).then(
                 ({ found }) => {
                   if (found) handleMarking(targets[2].id);
-                  else handleFeedback(targets[0].name, pointOfClick);
+                  else handleFeedback(targets[2].name);
                 }
               );
             }}

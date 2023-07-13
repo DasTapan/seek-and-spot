@@ -1,5 +1,5 @@
 const placeFeedback = (pointOfClick, imgWidth, imgHeight) => {
-  console.log({ pointOfClick, imgWidth, imgHeight });
+  // console.log({ pointOfClick, imgWidth, imgHeight });
   if (!pointOfClick) return;
   else {
     if (pointOfClick.x > 0.715) {

@@ -6,10 +6,10 @@ const Feedback = ({ pointOfClick, isActive, name, imgWidth, imgHeight }) => {
 
   return isActive ? (
     <span
-      className="absolute z-30 font-semibold text-red-700"
+      className="absolute z-30 rounded-lg bg-red-500 px-2 py-1 text-sm font-bold text-white shadow-lg"
       style={placement}
     >
-      This is not target
+      This is not {name}
     </span>
   ) : null;
 };

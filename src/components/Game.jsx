@@ -121,6 +121,7 @@ const Game = () => {
   };
 
   const handleClick = (e) => {
+    if (isFeedbackActive) setIsFeedbackActive(false);
     const { offsetX, offsetY } = {
       offsetX: e.nativeEvent.offsetX,
       offsetY: e.nativeEvent.offsetY,
@@ -134,8 +135,8 @@ const Game = () => {
       x: xDistance,
       y: yDistance,
     });
-    // positionTargetBox(offsetX, offsetY);
-    // setIsModalActive(!isModalActive);
+    positionTargetBox(offsetX, offsetY);
+    setIsModalActive(!isModalActive);
   };
 
   function formatName(input) {
@@ -163,6 +164,7 @@ const Game = () => {
 
   const handleFeedback = (name) => {
     setFeedbackName(name);
+    setIsFeedbackActive(true);
   };
 
   return (
@@ -219,8 +221,7 @@ const Game = () => {
         handleFeedback={handleFeedback}
       />
       <Feedback
-        // isActive={isFeedbackActive}
-        isActive={true}
+        isActive={isFeedbackActive}
         pointOfClick={pointOfClick}
         name={feedbackName}
         imgWidth={imageRef.current?.offsetWidth}
