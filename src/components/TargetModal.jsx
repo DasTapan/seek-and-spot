@@ -10,6 +10,7 @@ const TargetModal = ({
   artName,
   handleMarking,
   handleFeedback,
+  handleScore,
 }) => {
   return (
     <>
@@ -27,8 +28,10 @@ const TargetModal = ({
               handleIsOpen(false);
               checkCoordinates(artName, targets[0].id, pointOfClick).then(
                 ({ found }) => {
-                  if (found) handleMarking(targets[0].id);
-                  else handleFeedback(targets[0].name);
+                  if (found) {
+                    handleScore();
+                    handleMarking(targets[0].id);
+                  } else handleFeedback(targets[0].name);
                 }
               );
             }}
@@ -48,8 +51,10 @@ const TargetModal = ({
               handleIsOpen(false);
               checkCoordinates(artName, targets[1].id, pointOfClick).then(
                 ({ found }) => {
-                  if (found) handleMarking(targets[1].id);
-                  else handleFeedback(targets[1].name);
+                  if (found) {
+                    handleScore();
+                    handleMarking(targets[1].id);
+                  } else handleFeedback(targets[1].name);
                 }
               );
             }}
@@ -69,8 +74,10 @@ const TargetModal = ({
               handleIsOpen(false);
               checkCoordinates(artName, targets[2].id, pointOfClick).then(
                 ({ found }) => {
-                  if (found) handleMarking(targets[2].id);
-                  else handleFeedback(targets[2].name);
+                  if (found) {
+                    handleScore();
+                    handleMarking(targets[2].id);
+                  } else handleFeedback(targets[2].name);
                 }
               );
             }}
@@ -105,6 +112,7 @@ TargetModal.propTypes = {
   pointOfClick: PropTypes.object,
   handleMarking: PropTypes.func,
   handleFeedback: PropTypes.func,
+  handleScore: PropTypes.func,
 };
 
 export default TargetModal;

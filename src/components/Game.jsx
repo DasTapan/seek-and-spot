@@ -7,17 +7,21 @@ import LoadingIndicator from "./LoadingIndicator";
 import TargetModal from "./TargetModal";
 import Found from "./Found";
 import Feedback from "./Feedback";
+import getTimeStamp from "../helper/time";
 
 const Game = () => {
   const [targets, setTargets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isModalActive, setIsModalActive] = useState(false);
   const [isFeedbackActive, setIsFeedbackActive] = useState(false);
+  const [targetsFound, setTargetsFound] = useState(0);
+  const [time, setTime] = useState(0);
   const [feedbackName, setFeedbackName] = useState("");
   const [modalPosition, setModalPosition] = useState(null);
   const [pointOfClick, setPointOfClick] = useState(null);
 
   const imageRef = useRef(null);
+  const intervalRef = useRef(null);
 
   const location = useLocation();
   const imgUrl = location?.state?.imgUrl;
@@ -101,6 +105,38 @@ const Game = () => {
     fetchData();
   }, [artName]);
 
+  useEffect(() => {
+    if (targetsFound === 3) {
+      console.log("all targets found");
+      stopTimer();
+    }
+  }, [targetsFound]);
+
+  useEffect(() => {
+    startTimer();
+    return () => clearInterval(intervalRef.current);
+  }, []);
+
+  const stopTimer = () => {
+    clearInterval(intervalRef.current);
+  };
+
+  const startTimer = () => {
+    if (intervalRef.current !== undefined) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setTime((t) => t + 1);
+    }, 1);
+  };
+
+  const formatTime = () => {
+    const getMilliseconds = `00${time % 1000}`.slice(-3);
+    const seconds = `0${Math.floor(time / 1000) % 60}`.slice(-2);
+    const minutes = `0${Math.floor(time / 60000) % 60}`.slice(-2);
+    const hours = `0${Math.floor(time / 3600000)}`.slice(-2);
+
+    return `${hours} : ${minutes} : ${seconds} : ${getMilliseconds}`;
+  };
+
   const positionTargetBox = (x, y) => {
     let clientWidth, scrollHeight;
     if (imageRef.current) {
@@ -162,6 +198,8 @@ const Game = () => {
     imageHeight: imageRef.current?.scrollHeight,
   });
 
+  const handleScore = () => setTargetsFound((n) => n + 1);
+
   const handleFeedback = (name) => {
     setFeedbackName(name);
     setIsFeedbackActive(true);
@@ -208,7 +246,9 @@ const Game = () => {
             </div>
           )}
         </div>
-        <div className="timer">Timer Here</div>
+        <div className="timer pr-14 text-xl tracking-widest">
+          {formatTime(time)}
+        </div>
       </nav>
       <TargetModal
         modalPosition={modalPosition}
@@ -219,6 +259,7 @@ const Game = () => {
         artName={artName}
         handleMarking={markTarget}
         handleFeedback={handleFeedback}
+        handleScore={handleScore}
       />
       <Feedback
         isActive={isFeedbackActive}
