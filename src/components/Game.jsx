@@ -7,7 +7,6 @@ import LoadingIndicator from "./LoadingIndicator";
 import TargetModal from "./TargetModal";
 import Found from "./Found";
 import Feedback from "./Feedback";
-import getTimeStamp from "../helper/time";
 
 const Game = () => {
   const [targets, setTargets] = useState([]);

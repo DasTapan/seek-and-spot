@@ -12,8 +12,8 @@ const Found = ({ id, picName, isFound, getImageDimension }) => {
       const xMid = (xMin + xMax) / 2;
       const yMid = (yMin + yMax) / 2;
       const updatedPosition = {
-        left: `${imageWidth * xMid - 15}` + "px", // 15px for centering
-        top: `${imageHeight * yMid + 40}` + "px", // 60px for nav bar
+        left: `${imageWidth * xMid - 40}` + "px", // 15px for centering
+        top: `${imageHeight * yMid + 20}` + "px", // 60px for nav bar
       };
       setMarkingStyle(updatedPosition);
     })
@@ -21,7 +21,7 @@ const Found = ({ id, picName, isFound, getImageDimension }) => {
 
   return isFound ? (
     <img
-      src="/found2.png"
+      src="/found7.png"
       alt="found"
       className="absolute z-30"
       style={markingStyle}
