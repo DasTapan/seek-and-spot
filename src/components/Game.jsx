@@ -123,17 +123,16 @@ const Game = () => {
   const startTimer = () => {
     if (intervalRef.current !== undefined) clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
-      setTime((t) => t + 1);
-    }, 1);
+      setTime((t) => t + 1000);
+    }, 1000);
   };
 
   const formatTime = () => {
-    const getMilliseconds = `00${time % 1000}`.slice(-3);
     const seconds = `0${Math.floor(time / 1000) % 60}`.slice(-2);
     const minutes = `0${Math.floor(time / 60000) % 60}`.slice(-2);
     const hours = `0${Math.floor(time / 3600000)}`.slice(-2);
 
-    return `${hours} : ${minutes} : ${seconds} : ${getMilliseconds}`;
+    return `${hours} : ${minutes} : ${seconds}`;
   };
 
   const positionTargetBox = (x, y) => {
