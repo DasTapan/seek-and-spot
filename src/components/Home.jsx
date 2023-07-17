@@ -33,12 +33,36 @@ const Home = () => {
             </Link>
           ))}
         </div>
-        <div className="instruction w-72 rounded-md bg-[#cc0066] p-2 text-center text-white">
-          <h2 className="text-3xl font-bold text-white">Instructions</h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus
-          quis cum possimus magnam ex minus non error dolor quibusdam cupiditate
-          quod commodi provident sunt obcaecati animi, voluptates officia
-          aliquid est.
+        <div className="instruction w-72 rounded-md bg-[#cc0066] px-8 py-3.5 text-center text-white">
+          <h2 className="mb-4 text-3xl font-bold">Instructions</h2>
+          <ul className="list-disc">
+            <li className="mb-2.5 text-left">
+              <p className=" font-semibold">
+                Choose one of the six available cards to start playing.
+              </p>
+            </li>
+            <li className="mb-2.5 text-left">
+              <p className=" font-semibold">
+                Check the targets in the navigation bar on the game screen.
+              </p>
+            </li>
+            <li className="mb-2.5 text-left">
+              <p className=" font-semibold">
+                Hover over the targets to zoom in and get a clearer view.
+              </p>
+            </li>
+            <li className="mb-2.5 text-left">
+              <p className=" font-semibold">
+                Click on the screen to open a box revealing three potential
+                targets.
+              </p>
+            </li>
+            <li className="mb-2.5 text-left">
+              <p className=" font-semibold">
+                Select the correct character from the options provided.
+              </p>
+            </li>
+          </ul>
         </div>
       </section>
     </main>
