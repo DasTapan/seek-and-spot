@@ -7,6 +7,28 @@ import LoadingIndicator from "./LoadingIndicator";
 import TargetModal from "./TargetModal";
 import Found from "./Found";
 import Feedback from "./Feedback";
+import Modal from "react-modal";
+import SubmissionForm from "./SubmissionForm";
+
+const SubMissionModal = Modal;
+
+SubMissionModal.setAppElement("#root");
+
+const submissionModalStyles = {
+  overlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
+  },
+  content: {
+    padding: "0px",
+    borderRadius: "16px",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 const Game = () => {
   const [targets, setTargets] = useState([]);
@@ -14,6 +36,7 @@ const Game = () => {
   const [isModalActive, setIsModalActive] = useState(false);
   const [isFeedbackActive, setIsFeedbackActive] = useState(false);
   const [targetsFound, setTargetsFound] = useState(0);
+  const [isSubmissionModalActive, setIsSubmissionModalActive] = useState(false);
   const [time, setTime] = useState(0);
   const [feedbackName, setFeedbackName] = useState("");
   const [modalPosition, setModalPosition] = useState(null);
@@ -108,6 +131,7 @@ const Game = () => {
     if (targetsFound === 3) {
       console.log("all targets found");
       stopTimer();
+      setIsSubmissionModalActive(true);
     }
   }, [targetsFound]);
 
@@ -203,8 +227,26 @@ const Game = () => {
     setIsFeedbackActive(true);
   };
 
+  const handleSubmission = () => {
+    setIsSubmissionModalActive(false);
+  };
+
   return (
     <div className="game relative min-h-screen">
+      <SubMissionModal
+        isOpen={isSubmissionModalActive}
+        style={submissionModalStyles}
+      >
+        <div className="flex flex-col items-center bg-purple-500 p-6 shadow-lg">
+          <h3 className="mb-2 text-center text-2xl font-semibold text-white">
+            Congratulations!! You have successfully found all targets
+          </h3>
+          <h4 className="mb-2 text-center text-lg font-semibold text-white">
+            Please enter your name for Leaderboard
+          </h4>
+          <SubmissionForm handleSubmission={handleSubmission} />
+        </div>
+      </SubMissionModal>
       <nav className="sticky top-0 flex items-center justify-between bg-[#9400D3] px-5 py-1.5 font-bold text-white">
         <Link to="/">
           <button type="button">Home</button>

@@ -23,7 +23,7 @@ const Found = ({ id, picName, isFound, getImageDimension }) => {
     <img
       src="/found7.png"
       alt="found"
-      className="absolute z-30"
+      className="absolute"
       style={markingStyle}
     />
   ) : null;
