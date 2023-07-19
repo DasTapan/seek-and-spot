@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 const SubmissionForm = ({ handleSubmission }) => {
   const [name, setName] = useState("");
+  const userId = useContext(UserContext);
 
   const handleChange = (e) => setName(e.target.value);
 
@@ -10,7 +12,7 @@ const SubmissionForm = ({ handleSubmission }) => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        console.log("player name collected");
+        console.log("player name collected", userId);
         setName("");
         handleSubmission();
       }}

@@ -247,7 +247,7 @@ const Game = () => {
           <SubmissionForm handleSubmission={handleSubmission} />
         </div>
       </SubMissionModal>
-      <nav className="sticky top-0 flex items-center justify-between bg-[#9400D3] px-5 py-1.5 font-bold text-white">
+      <nav className="sticky top-0 z-50 flex items-center justify-between bg-[#9400D3] px-5 py-1.5 font-bold text-white">
         <Link to="/">
           <button type="button">Home</button>
         </Link>
