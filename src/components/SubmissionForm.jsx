@@ -1,18 +1,52 @@
 import PropTypes from "prop-types";
 import { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
+import { db } from "../firebase-config";
+import { addDoc, collection } from "firebase/firestore";
 
-const SubmissionForm = ({ handleSubmission }) => {
+const sanitizeInput = (input) => {
+  const words = input.split(" ");
+  const capitalizedWords = words.map((word) => {
+    const firstLetter = word.charAt(0).toUpperCase();
+    const restOfWord = word.slice(1);
+    return firstLetter + restOfWord;
+  });
+
+  const capitalizedStr = capitalizedWords.join(" ");
+  return capitalizedStr;
+};
+
+const SubmissionForm = ({ handleSubmission, time, canvas }) => {
   const [name, setName] = useState("");
   const userId = useContext(UserContext);
 
   const handleChange = (e) => setName(e.target.value);
+  const submitScore = async (userName) => {
+    try {
+      const collectionRef = collection(db, "leaderboard");
+      await addDoc(collectionRef, {
+        userId,
+        userName,
+        canvas,
+        time,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        console.log("player name collected", userId);
+        console.log("player details collected");
+        const userName = name ? sanitizeInput(name) : "Anonymous Player";
+        console.log({
+          userName,
+          userId,
+          time,
+        });
+        await submitScore(userName);
         setName("");
         handleSubmission();
       }}
@@ -29,6 +63,7 @@ const SubmissionForm = ({ handleSubmission }) => {
           id="player-name"
           type="text"
           onChange={handleChange}
+          name="player-name"
           value={name}
           className="mt-2 rounded-lg bg-purple-300 px-4 py-2 font-extrabold
            text-red-400 focus:border-red-400 
@@ -49,6 +84,8 @@ const SubmissionForm = ({ handleSubmission }) => {
 
 SubmissionForm.propTypes = {
   handleSubmission: PropTypes.func,
+  time: PropTypes.number,
+  canvas: PropTypes.string,
 };
 
 export default SubmissionForm;

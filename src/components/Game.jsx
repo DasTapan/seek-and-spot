@@ -244,7 +244,11 @@ const Game = () => {
           <h4 className="mb-2 text-center text-lg font-semibold text-white">
             Please enter your name for Leaderboard
           </h4>
-          <SubmissionForm handleSubmission={handleSubmission} />
+          <SubmissionForm
+            handleSubmission={handleSubmission}
+            time={time}
+            canvas={artName}
+          />
         </div>
       </SubMissionModal>
       <nav className="sticky top-0 z-50 flex items-center justify-between bg-[#9400D3] px-5 py-1.5 font-bold text-white">
