@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { db } from "../firebase-config";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 
@@ -35,6 +35,7 @@ const Leaderboard = () => {
         <button type="button">Go to Home</button>
       </Link>
       <h1>Thi is Leaderboard</h1>
+      <Outlet />
     </>
   );
 };

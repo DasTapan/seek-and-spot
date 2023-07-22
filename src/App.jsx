@@ -14,7 +14,14 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/game/:artName" element={<Game />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/leaderboard" element={<Leaderboard />}>
+              <Route path="ps2" />
+              <Route path="ps3" />
+              <Route path="ps4" />
+              <Route path="n64" />
+              <Route path="universe" />
+              <Route path="crossover" />
+            </Route>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
