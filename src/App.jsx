@@ -5,6 +5,7 @@ import getUserId from "./helper/getUserId";
 import Home from "./components/Home";
 import Game from "./components/Game";
 import Leaderboard from "./components/Leaderboard";
+import Canvas from "./pages/Canvas";
 
 function App() {
   return (
@@ -15,12 +16,12 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/game/:artName" element={<Game />} />
             <Route path="/leaderboard" element={<Leaderboard />}>
-              <Route path="ps2" />
-              <Route path="ps3" />
-              <Route path="ps4" />
-              <Route path="n64" />
-              <Route path="universe" />
-              <Route path="crossover" />
+              <Route path="" element={<Canvas canvas="ps2" />} />
+              <Route path="ps3" element={<Canvas canvas="ps3" />} />
+              <Route path="ps4" element={<Canvas canvas="ps4" />} />
+              <Route path="n64" element={<Canvas canvas="n64" />} />
+              <Route path="universe" element={<Canvas canvas="universe" />} />
+              <Route path="crossover" element={<Canvas canvas="crossover" />} />
             </Route>
           </Routes>
         </BrowserRouter>
