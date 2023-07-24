@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import fetchUserScore from "../helper/fetchUserScore";
 
 const Canvas = ({ canvas }) => {
-  useEffect(() => {
-    fetchUserScore(canvas);
-  }, [canvas]);
+  // useEffect(() => {
+  //   fetchUserScore(canvas);
+  // }, [canvas]);
 
   const displayCanvasName = (string) => {
     switch (string) {
@@ -25,7 +25,11 @@ const Canvas = ({ canvas }) => {
     throw Error("Unknown input ", string);
   };
 
-  return <h3>this is {displayCanvasName(canvas)} scoreboard</h3>;
+  return (
+    <div className="leaderboard">
+      <h3>this is the scoreboard</h3>
+    </div>
+  );
 };
 
 Canvas.propTypes = {
