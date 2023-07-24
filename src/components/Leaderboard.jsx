@@ -11,7 +11,7 @@ const Leaderboard = () => {
           Home
         </button>
       </Link>
-      <div className="leaderboard w-2/3 grow-[0.85] rounded-lg bg-teal-900">
+      <div className="leaderboard w-2/3 min-w-[650px] grow-[0.85] basis-[500px] rounded-lg bg-teal-900">
         <Outlet />
       </div>
     </div>
