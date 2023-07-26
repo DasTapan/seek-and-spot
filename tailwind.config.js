@@ -5,6 +5,11 @@ export default {
     fontFamily: {
       chokokutai: ["Chokokutai"],
       wallpoet: ["Wallpoet"],
+      bagelfatone: ["BagelFatOne"],
+      lilitaone: ["LilitaOne"],
+      lobster: ["Lobster"],
+      pressstart2p: ["PressStart2P"],
+      specialelite: ["SpecialElite"],
     },
     extend: {},
   },

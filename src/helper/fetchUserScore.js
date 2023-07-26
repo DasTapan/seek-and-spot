@@ -1,6 +1,15 @@
 import { db } from "../firebase-config";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 
+const millisToMinutesAndSeconds = (millis) => {
+  const minutes = Math.floor(millis / 60000);
+  const seconds = ((millis % 60000) / 1000).toFixed(0);
+
+  return seconds == 60
+    ? minutes + 1 + " Min"
+    : minutes + " Min " + (seconds < 10 ? "0" : "") + seconds + " Sec";
+};
+
 const fetchUserScore = async (canvasName) => {
   try {
     const collectionRef = collection(db, "leaderboard");
@@ -18,10 +27,11 @@ const fetchUserScore = async (canvasName) => {
         userId,
         userName,
         canvas,
-        time,
+        time: millisToMinutesAndSeconds(time),
       });
     });
-    console.table(scoreList);
+    // console.table(scoreList);
+    return scoreList;
   } catch (error) {
     console.error(error);
   }
