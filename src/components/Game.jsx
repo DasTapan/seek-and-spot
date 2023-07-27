@@ -351,9 +351,33 @@ const Game = () => {
           onClick={handleClick}
         />
       </main>
-      <footer className="flex justify-center bg-indigo-800 py-3 text-white">
-        <span className="mr-3">Made by DasTapan</span>
-        <span>Picture credit {artist?.artistName}</span>
+      <footer className="flex items-center justify-center bg-indigo-800 py-2 text-white">
+        <span className="mr-1 text-sm">Made by</span>
+        <span className="mr-0.5 text-lg font-semibold text-yellow-500">
+          Das
+        </span>
+        <a
+          href="https://github.com/DasTapan"
+          className="mr-0.5 hover:scale-125"
+        >
+          <img
+            src="/github-icon.png"
+            alt="github-icon"
+            style={{ height: "35px", width: "35px" }}
+          />
+        </a>
+        <span className="mr-5 text-lg font-semibold text-yellow-500">
+          Tapan
+        </span>
+        <span className="text-sm">
+          Picture Credit
+          <a href={artist?.artistLink}>
+            <span
+              className="ml-2 inline-block text-lg font-semibold
+             text-yellow-500 hover:scale-110"
+            >{` ${artist?.artistName}`}</span>
+          </a>
+        </span>
       </footer>
     </div>
   );
