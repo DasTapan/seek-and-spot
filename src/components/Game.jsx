@@ -41,6 +41,7 @@ const Game = () => {
   const [feedbackName, setFeedbackName] = useState("");
   const [modalPosition, setModalPosition] = useState(null);
   const [pointOfClick, setPointOfClick] = useState(null);
+  const [artist, setArtist] = useState(null);
 
   const imageRef = useRef(null);
   const intervalRef = useRef(null);
@@ -57,7 +58,11 @@ const Game = () => {
       try {
         const docRef = doc(db, "targets", artName);
         const docSnap = await getDoc(docRef);
-        const data = { ...docSnap.data() };
+        const rawInfo = { ...docSnap.data() };
+        const { target1, target2, target3 } = rawInfo;
+        const data = { target1, target2, target3 };
+        const { artistName, artistLink } = rawInfo;
+        setArtist({ artistName, artistLink });
         const targetsWithoutUrl = [];
 
         for (const key in data) {
@@ -348,7 +353,7 @@ const Game = () => {
       </main>
       <footer className="flex justify-center bg-indigo-800 py-3 text-white">
         <span className="mr-3">Made by DasTapan</span>
-        <span>Picture credit Artist</span>
+        <span>Picture credit {artist?.artistName}</span>
       </footer>
     </div>
   );
