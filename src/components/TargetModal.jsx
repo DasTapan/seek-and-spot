@@ -37,120 +37,123 @@ const TargetModal = ({
     color: "#831843",
   };
 
-  return (
-    <>
-      {isOpen ? (
-        <div
-          className="target-box z-50 w-44 rounded-lg border-2 border-pink-400 bg-pink-200"
-          style={{
-            position: "absolute",
-            left: `${modalPosition.left}` + "px",
-            top: `${modalPosition.top}` + "px",
-          }}
-        >
-          {targets[0].isFound ? (
-            <div className="target" style={foundStyle}>
-              <img
-                className="mr-1.5 h-12 w-12"
-                src={targets[0].iconUrl}
-                alt={targets[0].id}
-              />
-              <span className="font-semibold">{targets[0].name}</span>
-            </div>
-          ) : (
-            <div
-              className="target"
-              style={notFoundStyle}
-              onClick={() => {
-                handleIsOpen(false);
-                checkCoordinates(artName, targets[0].id, pointOfClick).then(
-                  ({ found }) => {
-                    if (found) {
-                      handleScore();
-                      handleMarking(targets[0].id);
-                    } else handleFeedback(targets[0].name);
-                  }
-                );
-              }}
-            >
-              <img
-                className="mr-1.5 h-12 w-12"
-                src={targets[0].iconUrl}
-                alt={targets[0].id}
-              />
-              <span className="font-semibold">{targets[0].name}</span>
-            </div>
-          )}
-          {targets[1].isFound ? (
-            <div className="target" style={foundStyle}>
-              <img
-                className="mr-1.5 h-12 w-12"
-                src={targets[1].iconUrl}
-                alt={targets[1].id}
-              />
-              <span className="font-semibold">{targets[1].name}</span>
-            </div>
-          ) : (
-            <div
-              className="target"
-              style={notFoundStyle}
-              onClick={() => {
-                handleIsOpen(false);
-                checkCoordinates(artName, targets[1].id, pointOfClick).then(
-                  ({ found }) => {
-                    if (found) {
-                      handleScore();
-                      handleMarking(targets[1].id);
-                    } else handleFeedback(targets[1].name);
-                  }
-                );
-              }}
-            >
-              <img
-                className="mr-1.5 h-12 w-12"
-                src={targets[1].iconUrl}
-                alt={targets[1].id}
-              />
-              <span className="font-semibold">{targets[1].name}</span>
-            </div>
-          )}
-          {targets[2].isFound ? (
-            <div className="target" style={foundStyle}>
-              <img
-                className="mr-1.5 h-12 w-12"
-                src={targets[2].iconUrl}
-                alt={targets[2].id}
-              />
-              <span className="font-semibold">{targets[2].name}</span>
-            </div>
-          ) : (
-            <div
-              className="target"
-              style={notFoundStyle}
-              onClick={() => {
-                handleIsOpen(false);
-                checkCoordinates(artName, targets[2].id, pointOfClick).then(
-                  ({ found }) => {
-                    if (found) {
-                      handleScore();
-                      handleMarking(targets[2].id);
-                    } else handleFeedback(targets[2].name);
-                  }
-                );
-              }}
-            >
-              <img
-                className="mr-1.5 h-12 w-12"
-                src={targets[2].iconUrl}
-                alt={targets[2].id}
-              />
-              <span className="font-semibold">{targets[2].name}</span>
-            </div>
-          )}
-        </div>
-      ) : null}
-    </>
-  );
+  if (targets.length === 0) return null;
+  else {
+    return (
+      <>
+        {isOpen ? (
+          <div
+            className="target-box z-50 w-44 rounded-lg border-2 border-pink-400 bg-pink-200"
+            style={{
+              position: "absolute",
+              left: `${modalPosition.left}` + "px",
+              top: `${modalPosition.top}` + "px",
+            }}
+          >
+            {targets[0].isFound ? (
+              <div className="target" style={foundStyle}>
+                <img
+                  className="mr-1.5 h-12 w-12"
+                  src={targets[0].iconUrl}
+                  alt={targets[0].id}
+                />
+                <span className="font-semibold">{targets[0].name}</span>
+              </div>
+            ) : (
+              <div
+                className="target"
+                style={notFoundStyle}
+                onClick={() => {
+                  handleIsOpen(false);
+                  checkCoordinates(artName, targets[0].id, pointOfClick).then(
+                    ({ found }) => {
+                      if (found) {
+                        handleScore();
+                        handleMarking(targets[0].id);
+                      } else handleFeedback(targets[0].name);
+                    }
+                  );
+                }}
+              >
+                <img
+                  className="mr-1.5 h-12 w-12"
+                  src={targets[0].iconUrl}
+                  alt={targets[0].id}
+                />
+                <span className="font-semibold">{targets[0].name}</span>
+              </div>
+            )}
+            {targets[1].isFound ? (
+              <div className="target" style={foundStyle}>
+                <img
+                  className="mr-1.5 h-12 w-12"
+                  src={targets[1].iconUrl}
+                  alt={targets[1].id}
+                />
+                <span className="font-semibold">{targets[1].name}</span>
+              </div>
+            ) : (
+              <div
+                className="target"
+                style={notFoundStyle}
+                onClick={() => {
+                  handleIsOpen(false);
+                  checkCoordinates(artName, targets[1].id, pointOfClick).then(
+                    ({ found }) => {
+                      if (found) {
+                        handleScore();
+                        handleMarking(targets[1].id);
+                      } else handleFeedback(targets[1].name);
+                    }
+                  );
+                }}
+              >
+                <img
+                  className="mr-1.5 h-12 w-12"
+                  src={targets[1].iconUrl}
+                  alt={targets[1].id}
+                />
+                <span className="font-semibold">{targets[1].name}</span>
+              </div>
+            )}
+            {targets[2].isFound ? (
+              <div className="target" style={foundStyle}>
+                <img
+                  className="mr-1.5 h-12 w-12"
+                  src={targets[2].iconUrl}
+                  alt={targets[2].id}
+                />
+                <span className="font-semibold">{targets[2].name}</span>
+              </div>
+            ) : (
+              <div
+                className="target"
+                style={notFoundStyle}
+                onClick={() => {
+                  handleIsOpen(false);
+                  checkCoordinates(artName, targets[2].id, pointOfClick).then(
+                    ({ found }) => {
+                      if (found) {
+                        handleScore();
+                        handleMarking(targets[2].id);
+                      } else handleFeedback(targets[2].name);
+                    }
+                  );
+                }}
+              >
+                <img
+                  className="mr-1.5 h-12 w-12"
+                  src={targets[2].iconUrl}
+                  alt={targets[2].id}
+                />
+                <span className="font-semibold">{targets[2].name}</span>
+              </div>
+            )}
+          </div>
+        ) : null}
+      </>
+    );
+  }
 };
 
 TargetModal.displayName = "TargetModal";
@@ -171,88 +174,3 @@ TargetModal.propTypes = {
 };
 
 export default TargetModal;
-
-{
-  /*
-  (
-        <div
-          className="target-box z-50 w-44 rounded-lg border-2 border-pink-400 bg-pink-200"
-          style={{
-            position: "absolute",
-            left: `${modalPosition.left}` + "px",
-            top: `${modalPosition.top}` + "px",
-          }}
-        >
-          <div
-            onClick={() => {
-              handleIsOpen(false);
-              checkCoordinates(artName, targets[0].id, pointOfClick).then(
-                ({ found }) => {
-                  if (found) {
-                    handleScore();
-                    handleMarking(targets[0].id);
-                  } else handleFeedback(targets[0].name);
-                }
-              );
-            }}
-            className="target mb-1.5 flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
-          >
-            <img
-              className="mr-1.5 h-12 w-12"
-              src={targets[0].iconUrl}
-              alt={targets[0].id}
-            />
-            <span className="font-semibold text-pink-900">
-              {targets[0].name}
-            </span>
-          </div>
-          <div
-            onClick={() => {
-              handleIsOpen(false);
-              checkCoordinates(artName, targets[0].id, pointOfClick).then(
-                ({ found }) => {
-                  if (found) {
-                    handleScore();
-                    handleMarking(targets[0].id);
-                  } else handleFeedback(targets[0].name);
-                }
-              );
-            }}
-            className="target mb-1.5 flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
-          >
-            <img
-              className="mr-1.5 h-12 w-12"
-              src={targets[1].iconUrl}
-              alt={targets[1].id}
-            />
-            <span className="font-semibold text-pink-900">
-              {targets[1].name}
-            </span>
-          </div>
-          <div
-            onClick={() => {
-              handleIsOpen(false);
-              checkCoordinates(artName, targets[0].id, pointOfClick).then(
-                ({ found }) => {
-                  if (found) {
-                    handleScore();
-                    handleMarking(targets[0].id);
-                  } else handleFeedback(targets[0].name);
-                }
-              );
-            }}
-            className="target flex cursor-pointer items-center rounded-md bg-pink-300 px-1.5 py-1"
-          >
-            <img
-              className="mr-1.5 h-12 w-12"
-              src={targets[2].iconUrl}
-              alt={targets[2].id}
-            />
-            <span className="font-semibold text-pink-900">
-              {targets[2].name}
-            </span>
-          </div>
-        </div>
-      )
-  **/
-}
