@@ -1,6 +1,10 @@
 import { Link, Outlet } from "react-router-dom";
+import LeaderBoardLink from "./LeaderBoardLink";
+import uniqid from "uniqid";
 
 const Leaderboard = () => {
+  const linkNames = ["PS2", "PS3", "PS4", "N64", "Crossover", "Universe"];
+
   return (
     <div className="wrapper flex min-h-screen flex-col items-center bg-gradient-to-b from-[#FF00FF] to-[#FFFF00] pt-7">
       <Link to="/" className="mb-5">
@@ -16,42 +20,9 @@ const Leaderboard = () => {
           Leaderboard
         </h1>
         <div className="links mb-5 flex justify-around">
-          <Link
-            to=""
-            className="rounded-full bg-purple-500 px-3 py-1.5 text-lg font-semibold text-white hover:bg-purple-600"
-          >
-            PS2
-          </Link>
-          <Link
-            to="ps3"
-            className="rounded-full bg-purple-500 px-3 py-1.5 text-lg font-semibold text-white hover:bg-purple-600"
-          >
-            PS3
-          </Link>
-          <Link
-            to="ps4"
-            className="rounded-full bg-purple-500 px-3 py-1.5 text-lg font-semibold text-white hover:bg-purple-600"
-          >
-            PS4
-          </Link>
-          <Link
-            to="n64"
-            className="rounded-full bg-purple-500 px-3 py-1.5 text-lg font-semibold text-white hover:bg-purple-600"
-          >
-            N64
-          </Link>
-          <Link
-            to="universe"
-            className="rounded-full bg-purple-500 px-3 py-1.5 text-lg font-semibold text-white hover:bg-purple-600"
-          >
-            Universe
-          </Link>
-          <Link
-            to="crossover"
-            className="rounded-full bg-purple-500 px-3 py-1.5 text-lg font-semibold text-white hover:bg-purple-600"
-          >
-            Crossover
-          </Link>
+          {linkNames.map((name) => (
+            <LeaderBoardLink key={uniqid()} name={name} />
+          ))}
         </div>
         <Outlet />
       </div>
