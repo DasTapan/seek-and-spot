@@ -134,7 +134,7 @@ const Game = () => {
 
   useEffect(() => {
     if (targetsFound === 3) {
-      console.log("all targets found");
+      // console.log("all targets found");
       stopTimer();
       setIsSubmissionModalActive(true);
     }

@@ -39,13 +39,13 @@ const SubmissionForm = ({ handleSubmission, time, canvas }) => {
     <form
       onSubmit={async (e) => {
         e.preventDefault();
-        console.log("player details collected");
+        // console.log("player details collected");
         const userName = name ? sanitizeInput(name) : "Anonymous Player";
-        console.log({
-          userName,
-          userId,
-          time,
-        });
+        // console.log({
+        //   userName,
+        //   userId,
+        //   time,
+        // });
         await submitScore(userName);
         setName("");
         handleSubmission();
