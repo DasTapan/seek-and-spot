@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <main className="home min-h-screen bg-gradient-to-r from-[#300063] to-[#9932CC] p-2">
-      <h1 className="mx-auto mb-7 w-80 font-chokokutai text-5xl font-bold text-white">
-        Seek & Find
+      <h1 className="mx-auto mb-7 text-center font-chokokutai text-5xl font-bold text-white">
+        Seek & Spot
       </h1>
       <section className="mx-auto flex items-start justify-between md:w-11/12">
         <Link to="/leaderboard">
