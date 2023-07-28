@@ -2,7 +2,7 @@
 
 Seek n Spot is a fun and interactive photo tagging application game that tests your observation skills with exciting levels to play with. The timer starts as soon as the game begins and only stops when you spot all the targets in an image. Play, spot and compete with others!
 
-Visit [Live Game](https://your-live-game-link.com) to try it out.
+Visit [Live Game](https://seek-and-find-33dd4.web.app) to try it out.
 
 ## Technologies
 

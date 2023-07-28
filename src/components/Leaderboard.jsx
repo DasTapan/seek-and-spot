@@ -15,7 +15,7 @@ const Leaderboard = () => {
           Home
         </button>
       </Link>
-      <div className="leaderboard w-2/3 min-w-[650px] grow-[0.85] basis-[500px] rounded-lg bg-teal-900 p-3">
+      <div className="leaderboard w-2/3 min-w-[650px] grow-[0.85] basis-[500px] overflow-y-auto rounded-lg bg-teal-900 p-3">
         <h1 className="mb-5 text-center font-lobster text-4xl tracking-widest text-yellow-300">
           Leaderboard
         </h1>
