@@ -13,8 +13,8 @@ const Found = ({ id, picName, isFound, getImageDimension }) => {
         const xMid = (xMin + xMax) / 2;
         const yMid = (yMin + yMax) / 2;
         const updatedPosition = {
-          left: `${imageWidth * xMid - 40}` + "px", // 15px for centering
-          top: `${imageHeight * yMid + 20}` + "px", // 60px for nav bar
+          left: `${Math.floor((imageWidth * xMid - 40) * 1000) / 1000}` + "px",
+          top: `${Math.floor((imageHeight * yMid + 20) * 1000) / 1000}` + "px",
         };
         setMarkingStyle(updatedPosition);
       })

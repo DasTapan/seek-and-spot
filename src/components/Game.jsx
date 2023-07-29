@@ -1,6 +1,6 @@
 import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import LoadingIndicator from "./LoadingIndicator";
@@ -220,10 +220,15 @@ const Game = () => {
     setTargets(updatedTargets);
   };
 
-  const getImageDimension = () => ({
-    imageWidth: imageRef.current?.clientWidth,
-    imageHeight: imageRef.current?.scrollHeight,
-  });
+  const getImageDimension = useCallback(
+    () => ({
+      imageWidth:
+        Math.floor(Number(imageRef.current?.clientWidth) * 1000) / 1000,
+      imageHeight:
+        Math.floor(Number(imageRef.current?.scrollHeight) * 1000) / 1000,
+    }),
+    []
+  );
 
   const handleScore = () => setTargetsFound((n) => n + 1);
 
